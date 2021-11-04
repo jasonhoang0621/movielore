@@ -16,13 +16,17 @@ function Topbar() {
             <div className="right-topbar">
                 <div className="topbar-icon">
                     <Bookmark />
-                    <span className="topbar-icon-badge"></span>
                 </div>
                 <div className="topbar-icon">
                     <Notifications />
-                    <span className="topbar-icon-badge"></span>
+                    <span className="topbar-icon-badge">2</span>
                 </div>
-                <div className="topbar-login">Đăng nhập</div>
+                <div className="topbar-login">
+                    {/* <span className="topbar-signup">Đăng nhập</span> */}
+                    <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="" className="topbar-avatar" />
+                    <span className="topbar-user-name">Nhân Hoàng</span>
+                </div>
+
             </div>
         </div>
     )
