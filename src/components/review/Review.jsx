@@ -1,20 +1,41 @@
 import Post from "../post/Post";
-import "./review.scss"
-
+import "./review.scss";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Review() {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:4000/movies')
+            .then(function (res) {
+                let data = res && res.data ? res.data : [];
+                setMovies(data);
+            })
+    }, [])
+
     return (
         <div className="review-container">
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            {movies && movies.length > 0 && movies.map(item => {
+                return (
+                    <Post key={item.id}
+                        id={item.id}
+                        athor={item.athor}
+                        cast={item.cast}
+                        director={item.director}
+                        gerne={item.gerne}
+                        name={item.name}
+                        plot={item.plot}
+                        poster={item.poster}
+                        rate={item.rate}
+                        releaseDate={item.releaseDate}
+                        review={item.review}
+                        time={item.time}
+                    />
+                )
 
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            })}
+
         </div>
     )
 }
