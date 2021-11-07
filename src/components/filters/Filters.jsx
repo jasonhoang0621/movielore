@@ -247,19 +247,19 @@ function Filters() {
                     <div className="filter-title">
                         <span className="title-text">Năm phát hành:</span>
                         <select className="filter-dropbox">
-                            {year.map(item => <option value={item.id}>{item.title}</option>)}
+                            {year.map(item => <option value={item.id} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
                     <div className="filter-title">
                         <span className="title-text">Phân loại:</span>
                         <select className="filter-dropbox">
-                            {type.map(item => <option value={item.id}>{item.title}</option>)}
+                            {type.map(item => <option value={item.id} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
                     <div className="filter-title">
                         <span className="title-text">Quốc gia:</span>
                         <select className="filter-dropbox">
-                            {country.map(item => <option value={item.id}>{item.title}</option>)}
+                            {country.map(item => <option value={item.id} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
 
