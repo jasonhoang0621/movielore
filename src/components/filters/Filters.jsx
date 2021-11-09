@@ -1,27 +1,25 @@
 import './filters.scss'
 import { FilterList } from '@material-ui/icons'
-import { useState, useEffect } from 'react'
-import PostList from "../postList/PostList";
+import { useState } from 'react'
+// import { useContext } from "react";
+// import { MovieContext } from "../../store";
 
 
 function Filters(props) {
+    // const [state, dispatch] = useContext(MovieContext);
+
     const [isShow, setIsShow] = useState(false);
     const [year, setYear] = useState('Tất cả');
     const [type, setType] = useState('Tất cả');
     const [country, setCountry] = useState('Tất cả');
-    const [finalFilter, setFinalFilter] = useState({});
     // const [isFilterYear, setIsFilterYear] = useState(false);
     // const [isFilterType, setIsFilterType] = useState(false);
     // const [isFilterCountry, setIsFilterCountry] = useState(false);
 
-    useEffect(() => {
-        setFinalFilter(props.menuFilter);
-    }, [props.menuFilter])
 
     const handleChooseYear = (event) => {
         setYear(event.target.value);
-        let temp = props.menuFilter.filter(item => item.releaseDate.substring(item.releaseDate.length - 4) === event.target.value);
-        setFinalFilter(temp);
+        // let temp = props.menuFilter.filter(item => item.releaseDate.substring(item.releaseDate.length - 4) === event.target.value);
         // if (event.target.value !== 'Tất cả') setIsFilterYear(true);
         // else setIsFilterYear(false);
     }
@@ -289,13 +287,8 @@ function Filters(props) {
                             {countrys.map(item => <option value={item.title} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
-
                 </div>
             }
-
-            <div className="post-list">
-                <PostList final={finalFilter} />
-            </div>
         </>
     )
 }

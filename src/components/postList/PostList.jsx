@@ -1,10 +1,18 @@
 import './postList.scss'
-import Post from "../post/Post";
+import Post from "../post/Post"
+import { useContext } from 'react'
+import { MovieContext } from '../../store'
 
-function PostList(props) {
+function PostList() {
+    const [state] = useContext(MovieContext);
+    let movies = state.filter;
+    if (state.isFinalFilter) {
+        movies = state.finalFilter
+    }
+
     return (
         <div className="post-list">
-            {props.final && props.final.length > 0 && props.final.map(item => {
+            {movies && movies.length > 0 && movies.map(item => {
                 return (
                     <Post key={item.id}
                         id={item.id}

@@ -1,10 +1,12 @@
 import "./review.scss";
 import Filters from '../filters/Filters'
+import PostList from '../postList/PostList'
 
-function Review(props) {
+function Review() {
     return (
         <div className="review-container">
-            <Filters menuFilter={props.filter} />
+            <Filters />
+            <PostList />
         </div>
     )
 }
