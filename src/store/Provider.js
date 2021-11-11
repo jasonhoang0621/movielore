@@ -16,7 +16,7 @@ function Provider(props) {
     }, [])
 
     return (
-        <Context.Provider value={[state, dispatch]}>
+        <Context.Provider value={{ state, dispatch }}>
             {props.children}
         </Context.Provider>
     )

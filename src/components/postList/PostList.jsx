@@ -4,11 +4,8 @@ import { useContext } from 'react'
 import { MovieContext } from '../../store'
 
 function PostList() {
-    const [state] = useContext(MovieContext);
-    let movies = state.filter;
-    if (state.isFinalFilter) {
-        movies = state.finalFilter
-    }
+    const { state } = useContext(MovieContext);
+    let movies = state.isFinalFilter ? state.finalFilter : state.filter;
 
     return (
         <div className="post-list">

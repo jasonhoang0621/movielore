@@ -1,37 +1,25 @@
 import './filters.scss'
 import { FilterList } from '@material-ui/icons'
 import { useState } from 'react'
-// import { useContext } from "react";
-// import { MovieContext } from "../../store";
+import { useContext } from "react"
+import { MovieContext } from "../../store"
+import { actions } from '../../store'
 
 
 function Filters(props) {
-    // const [state, dispatch] = useContext(MovieContext);
-
+    const { state, dispatch } = useContext(MovieContext);
     const [isShow, setIsShow] = useState(false);
-    const [year, setYear] = useState('Tất cả');
-    const [type, setType] = useState('Tất cả');
-    const [country, setCountry] = useState('Tất cả');
-    // const [isFilterYear, setIsFilterYear] = useState(false);
-    // const [isFilterType, setIsFilterType] = useState(false);
-    // const [isFilterCountry, setIsFilterCountry] = useState(false);
-
 
     const handleChooseYear = (event) => {
-        setYear(event.target.value);
-        // let temp = props.menuFilter.filter(item => item.releaseDate.substring(item.releaseDate.length - 4) === event.target.value);
-        // if (event.target.value !== 'Tất cả') setIsFilterYear(true);
-        // else setIsFilterYear(false);
+        dispatch(actions.setFilterYear(event.target.value))
     }
 
     const handleChooseType = (event) => {
-        console.log(event.target.value);
-        setType(event.target.value);
+        dispatch(actions.setFilterType(event.target.value))
     }
 
     const handleChooseCountry = (event) => {
-        console.log(event.target.value);
-        setCountry(event.target.value);
+        dispatch(actions.setFilterCountry(event.target.value))
     }
 
     const countrys = [
@@ -72,10 +60,6 @@ function Filters(props) {
             title: 'Anh'
         },
         {
-            id: 'italy',
-            title: 'Ý'
-        },
-        {
             id: 'hongkong',
             title: 'Hồng Kông'
         }
@@ -87,8 +71,8 @@ function Filters(props) {
             title: 'Tất cả'
         },
         {
-            id: '15+',
-            title: '15+'
+            id: 'every',
+            title: 'Mọi lứa tuổi'
         },
         {
             id: 'C13',
@@ -101,22 +85,6 @@ function Filters(props) {
         {
             id: 'C18',
             title: 'C18'
-        },
-        {
-            id: 'NC16',
-            title: 'NC16'
-        },
-        {
-            id: 'P',
-            title: 'P'
-        },
-        {
-            id: 'PG',
-            title: 'PG'
-        },
-        {
-            id: 'PG-13',
-            title: 'PG-13'
         },
         {
             id: 'R',
@@ -271,19 +239,19 @@ function Filters(props) {
                 <div className="filter-list">
                     <div className="filter-title">
                         <span className="title-text">Năm phát hành:</span>
-                        <select className="filter-dropbox" value={year} onChange={(event) => handleChooseYear(event)}>
+                        <select className="filter-dropbox" value={state.year} onChange={(event) => handleChooseYear(event)}>
                             {years.map(item => <option value={item.title} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
                     <div className="filter-title">
                         <span className="title-text">Phân loại:</span>
-                        <select className="filter-dropbox" value={type} onChange={(event) => handleChooseType(event)}>
+                        <select className="filter-dropbox" value={state.type} onChange={(event) => handleChooseType(event)}>
                             {types.map(item => <option value={item.title} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
                     <div className="filter-title">
                         <span className="title-text">Quốc gia:</span>
-                        <select className="filter-dropbox" value={country} onChange={(event) => handleChooseCountry(event)}>
+                        <select className="filter-dropbox" value={state.country} onChange={(event) => handleChooseCountry(event)}>
                             {countrys.map(item => <option value={item.title} key={item.id}>{item.title}</option>)}
                         </select>
                     </div>
