@@ -2,8 +2,8 @@ import './filters.scss'
 import { FilterList } from '@material-ui/icons'
 import { useState } from 'react'
 import { useContext } from "react"
-import { MovieContext } from "../../store"
-import { actions } from '../../store'
+import { MovieContext } from "../../../store"
+import { actions } from "../../../store"
 
 
 function Filters(props) {

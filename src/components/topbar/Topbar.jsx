@@ -1,6 +1,6 @@
 import { PostAdd, Notifications } from '@material-ui/icons'
 import "./topbar.scss"
-import SearchBar from "../searchBar/SearchBar"
+import SearchBar from "./searchBar/SearchBar"
 import { Link } from 'react-router-dom'
 import { useContext } from "react"
 import { MovieContext } from "../../store"

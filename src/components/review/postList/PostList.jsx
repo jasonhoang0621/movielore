@@ -1,7 +1,7 @@
 import './postList.scss'
-import Post from "../post/Post"
+import Post from "./post/Post"
 import { useContext } from 'react'
-import { MovieContext } from '../../store'
+import { MovieContext } from '../../../store'
 
 function PostList() {
     const { state } = useContext(MovieContext);

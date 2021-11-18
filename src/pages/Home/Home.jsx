@@ -3,6 +3,8 @@ import "./home.scss"
 import Menubar from "../../components/menubar/Menubar"
 import Review from '../../components/review/Review'
 import AddPost from "../../components/addPost/AddPost"
+import Information from "../../components/information/Information"
+import Comment from "../../components/comment/Comment"
 
 import {
     BrowserRouter as Router,
@@ -23,6 +25,10 @@ function Home() {
                         </Route>
                         <Route path="/add">
                             <AddPost />
+                        </Route>
+                        <Route path="/detail">
+                            <Comment />
+                            <Information />
                         </Route>
                     </Switch>
                 </div>

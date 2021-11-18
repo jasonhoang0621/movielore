@@ -93,7 +93,7 @@ function AddPost() {
     const handleSubmitAll = () => {
         const values = Object.values(data);
         for (let i = 0; i < values.length; i++) {
-            if (values[i] === '') {
+            if ((typeof values[i] === 'string' && values[i] === '') || (typeof values[i] === 'object' && values[i].length === 0)) {
                 setErrorMessage('Vui lòng kiểm tra và điền đầy đủ thông tin');
                 setTimeout(() => {
                     setErrorMessage('');
