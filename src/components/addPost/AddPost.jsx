@@ -129,8 +129,8 @@ function AddPost() {
                         <label htmlFor="first-movies-title" className="block-label">Tên phim:</label>
                         <input type="text" id="first-movies-title" className="block-input" placeholder="vd: Movie Lore" value={data.name} onChange={event => setData({ ...data, name: event.target.value })} />
 
-                        <label htmlFor="first-trailer" className="block-label">Trailer URL:</label>
-                        <input type="text" id="first-trailer" className="block-input" placeholder="vd: https://www.youtube.com/watch?v=dQw4w9WgXcQ" value={data.trailer} onChange={event => setData({ ...data, trailer: event.target.value })} />
+                        <label htmlFor="first-trailer" className="block-label">Trailer ID:</label>
+                        <input type="text" id="first-trailer" className="block-input" placeholder="vd: dQw4w9WgXcQ" value={data.trailer} onChange={event => setData({ ...data, trailer: "https://www.youtube.com/embed/" + event.target.value + "?autoplay=1" })} />
 
                         <label htmlFor="first-country" className="block-label">Quốc gia:</label>
                         <input type="text" id="first-country" className="block-input" placeholder="vd: Việt Nam, Mỹ, Nhật,..." value={data.country} onChange={event => setData({ ...data, country: event.target.value })} />
@@ -147,7 +147,7 @@ function AddPost() {
                                 return (
                                     <span key={index} className="first-type-tags">
                                         <input id={'first-type-' + index} type="radio" name="types" value={type} selected={data.type} onChange={event => setData({ ...data, type: event.target.value })} />
-                                        <label htmlFor={'first-type-' + index}>{type}</label>
+                                        <label htmlFor={'first-type-' + index} className="first-type-label">{type}</label>
                                     </span>
                                 )
                             })}

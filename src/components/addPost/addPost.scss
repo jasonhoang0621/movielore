@@ -111,6 +111,12 @@ textarea {
                     object-fit: cover;
                 }
             }
+
+            .first-type {
+                .first-type-label {
+                    margin-top: 0.5em;
+                }
+            }
         }
 
         .second-block {        
@@ -277,6 +283,7 @@ textarea {
 .first-type > .first-type-tags:first-child > label {
     width: 140px;
 }
+
 
 ::-webkit-scrollbar {
     width: 5px;
