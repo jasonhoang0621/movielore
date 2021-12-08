@@ -4,7 +4,7 @@ import { Grade, MovieCreation } from '@material-ui/icons'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Context } from '../../store'
-import { actions } from '../../store'
+import { movieActions } from '../../store'
 
 function AddPost() {
     const gernes = ['Anime', 'Âm nhạc', 'Bí ẩn', 'Chiến tranh', 'Chính kịch', 'Drama',
@@ -110,7 +110,7 @@ function AddPost() {
         })
             .then(res => {
                 console.log(res.data);
-                dispatch(actions.addNewReview(res.data));
+                dispatch(movieActions.addNewReview(res.data));
             })
             .then(history.push('/'))
             .catch(error => console.log(error))

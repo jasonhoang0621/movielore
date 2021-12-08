@@ -1,1 +1,1 @@
-export const REGISTER_ACCOUNT = 'resgister_account';
+export const STORE_LOGIN_ACCOUNT = 'store_login_account';

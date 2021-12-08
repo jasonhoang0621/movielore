@@ -4,13 +4,16 @@ import SearchBar from "./searchBar/SearchBar"
 import { Link } from 'react-router-dom'
 import { useContext } from "react"
 import { Context } from "../../store"
-import { actions } from '../../store'
+import { movieActions } from '../../store'
+
 
 function Topbar() {
     const { dispatch } = useContext(Context.movieContext);
+    const { userState } = useContext(Context.userContext);
+    console.log(userState);
 
     const handleResetPost = () => {
-        dispatch(actions.resetPostList());
+        dispatch(movieActions.resetPostList());
     }
 
     return (
@@ -29,24 +32,25 @@ function Topbar() {
                     <Notifications />
                     <span className="topbar-icon-badge">2</span>
                 </div>
-                <div className="topbar-login">
-                    <span><Face className="topbar-user-icon" /></span>
-                    <span className="topbar-user-name">Nhân</span>
 
-                    {/* dropbox */}
-                    <div className="topbar-login-dropbox">
-                        <div className="topbar-dropbox-item">Sửa thông tin</div>
-                        <div className="topbar-dropbox-item">Đổi mật khẩu</div>
-                        <div className="topbar-dropbox-item">Yêu thích</div>
-                        <div className="topbar-dropbox-item">Đăng xuất</div>
+                {userState.name ?
+                    <div className="topbar-login">
+                        <span><Face className="topbar-user-icon" /></span>
+                        <span className="topbar-user-name">{userState.name}</span>
+
+                        {/* dropbox */}
+                        <div className="topbar-login-dropbox">
+                            <div className="topbar-dropbox-item">Sửa thông tin</div>
+                            <div className="topbar-dropbox-item">Đổi mật khẩu</div>
+                            <div className="topbar-dropbox-item">Yêu thích</div>
+                            <div className="topbar-dropbox-item">Đăng xuất</div>
+                        </div>
                     </div>
-                </div>
-
-                <div className="topbar-register">
-                    <Link to="/login" className="topbar-register-title">Đăng nhập</Link>
-                </div>
-
-
+                    :
+                    <div className="topbar-register">
+                        <Link to="/login" className="topbar-register-title">Đăng nhập</Link>
+                    </div>
+                }
 
             </div>
         </div>
