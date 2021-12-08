@@ -12,6 +12,7 @@ const initState = {
     country: 'Tất cả',
     searchFilter: '',
     isSearch: false,
+    isLoading: true,
 }
 
 const chosen = (filter, movie) => filter.every(r => movie.includes(r))
@@ -23,6 +24,7 @@ function reducer(state, action) {
                 ...state,
                 movies: action.payload,
                 filter: action.payload,
+                isLoading: false,
             }
         case FILTER_MOVIES_GERNE: {
             let temp = state.movies;
@@ -144,7 +146,7 @@ function reducer(state, action) {
         }
 
         default:
-            throw new Error('Invalid action')
+            throw new Error('movie invalid action')
     }
 }
 

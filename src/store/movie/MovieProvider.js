@@ -1,14 +1,14 @@
-import Context from './Context'
+import context from '../Context';
 import { useReducer, useEffect } from 'react'
-import reducer, { initState } from './reducer';
+import MovieReducer, { initState } from './reducer';
 import axios from 'axios';
-import { actions } from '.';
+import { actions } from '..';
 
-function Provider(props) {
-    const [state, dispatch] = useReducer(reducer, initState);
+function MovieProvider(props) {
+    const [state, dispatch] = useReducer(MovieReducer, initState);
 
     useEffect(() => {
-        axios.get('http://localhost:4000/movies')
+        axios.get('https://movielore-database.herokuapp.com')
             .then(function (res) {
                 let data = res && res.data ? res.data : [];
                 dispatch(actions.loadMoviesDate(data.reverse()));
@@ -19,10 +19,10 @@ function Provider(props) {
     }, [])
 
     return (
-        <Context.Provider value={{ state, dispatch }}>
+        <context.movieContext.Provider value={{ state, dispatch }}>
             {props.children}
-        </Context.Provider>
+        </context.movieContext.Provider>
     )
 }
 
-export default Provider;
+export default MovieProvider;
