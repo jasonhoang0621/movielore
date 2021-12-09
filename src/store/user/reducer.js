@@ -1,7 +1,6 @@
-import { STORE_LOGIN_ACCOUNT } from './constant';
+import { STORE_LOGIN_ACCOUNT, LOGOUT_ACCOUNT } from './constant';
 
 const initState = {
-    isLoading: true,
     name: null,
     email: null,
     password: null,
@@ -16,6 +15,13 @@ function reducer(state, action) {
                 email: action.payload.email,
                 password: action.payload.password,
                 role: action.payload.role
+            }
+        case LOGOUT_ACCOUNT:
+            return {
+                name: null,
+                email: null,
+                password: null,
+                role: false
             }
         default:
             throw new Error('user invalid action');

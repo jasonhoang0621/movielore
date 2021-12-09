@@ -6,7 +6,7 @@ import { Context } from '../../store';
 import { userActions } from '../../store';
 
 function Login() {
-    const { dispatch } = useContext(Context.userContext);
+    const { userDispatch } = useContext(Context.userContext);
 
 
     const history = useHistory();
@@ -28,14 +28,12 @@ function Login() {
         })
             .then(res => {
                 setIsLoading(false);
-                console.log(res);
                 if (res.data.code) {
                     setWarn('Mật khẩu không chính xác');
                     setTimeout(() => setWarn(''), 3000);
                     return;
                 } else {
-                    console.log(res.data);
-                    dispatch(userActions.StoreAccount(res.data));
+                    userDispatch(userActions.StoreAccount(res.data));
                     history.push('/')
                 }
             })

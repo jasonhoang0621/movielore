@@ -3,17 +3,20 @@ import "./topbar.scss"
 import SearchBar from "./searchBar/SearchBar"
 import { Link } from 'react-router-dom'
 import { useContext } from "react"
-import { Context } from "../../store"
-import { movieActions } from '../../store'
+import { Context, movieActions } from "../../store"
+import { userActions } from '../../store'
 
 
 function Topbar() {
     const { dispatch } = useContext(Context.movieContext);
-    const { userState } = useContext(Context.userContext);
-    console.log(userState);
+    const { userState, userDispatch } = useContext(Context.userContext);
 
     const handleResetPost = () => {
         dispatch(movieActions.resetPostList());
+    }
+
+    const handleLogOut = () => {
+        userDispatch(userActions.logOut());
     }
 
     return (
@@ -25,13 +28,14 @@ function Topbar() {
                 <SearchBar />
             </div>
             <div className="right-topbar">
-                <div className="topbar-icon">
+                {userState.role && <div className="topbar-icon">
                     <Link to="/add" className="add-icon"><PostAdd /></Link>
-                </div>
-                <div className="topbar-icon">
+                </div>}
+                {userState.name && <div className={userState.role ? "topbar-icon" : "topbar-icon notic-icon"}>
                     <Notifications />
                     <span className="topbar-icon-badge">2</span>
                 </div>
+                }
 
                 {userState.name ?
                     <div className="topbar-login">
@@ -43,7 +47,7 @@ function Topbar() {
                             <div className="topbar-dropbox-item">Sửa thông tin</div>
                             <div className="topbar-dropbox-item">Đổi mật khẩu</div>
                             <div className="topbar-dropbox-item">Yêu thích</div>
-                            <div className="topbar-dropbox-item">Đăng xuất</div>
+                            <div className="topbar-dropbox-item" onClick={handleLogOut}>Đăng xuất</div>
                         </div>
                     </div>
                     :

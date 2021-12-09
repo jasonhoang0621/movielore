@@ -1,8 +1,12 @@
 import "./post.scss"
 import { Grade } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
+import { useContext } from "react"
+import { Context } from '../../../../store'
 
 function Post(props) {
+    const { userState } = useContext(Context.userContext);
+
     function getPosition(string, subString, index) {
         return string.split(subString, index).join(subString).length;
     }
