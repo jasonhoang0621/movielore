@@ -205,7 +205,7 @@ function AddPost() {
                         })}
 
                         <div className="review-option">
-                            <div className="review-remove-btb" onClick={handleRemoveReview}>Xóa</div>
+                            <div className="review-remove-btn" onClick={handleRemoveReview}>Xóa</div>
                             <div className="review-add-btn" onClick={handleAddReview}>Thêm</div>
                         </div>
                     </div>

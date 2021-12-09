@@ -44,10 +44,10 @@ function Topbar() {
 
                         {/* dropbox */}
                         <div className="topbar-login-dropbox">
-                            <div className="topbar-dropbox-item">Sửa thông tin</div>
-                            <div className="topbar-dropbox-item">Đổi mật khẩu</div>
-                            <div className="topbar-dropbox-item">Yêu thích</div>
-                            <div className="topbar-dropbox-item" onClick={handleLogOut}>Đăng xuất</div>
+                            <Link to='/profile' className="topbar-dropbox-item">Sửa thông tin</Link>
+                            <Link to='/profile/password' className="topbar-dropbox-item">Đổi mật khẩu</Link>
+                            <Link to='/profile/favorite' className="topbar-dropbox-item">Yêu thích</Link>
+                            <Link to='#' className="topbar-dropbox-item" onClick={handleLogOut}>Đăng xuất</Link>
                         </div>
                     </div>
                     :

@@ -36,7 +36,7 @@
         align-items: center;
 
         .topbar-icon {
-            margin: 0 1 em;
+            margin: 0 1em;
             position: relative;
             cursor: pointer;
 
@@ -98,16 +98,23 @@
             .topbar-login-dropbox {
                 position: absolute;
                 background-color: #917137;
-                top: 2em;
-                right: 13.5em;
+                top: 2.2em;
+                right: 13.2em;
                 display: none;
                 color: black !important;
                 list-style-type: none;
     
                 .topbar-dropbox-item {
-                    padding: 1em 1em;
+                    display: block;
+                    color: black;
+                    text-decoration: none;
+                    padding: 0.7em 0.8em;
                     border-bottom: 1px solid black;
                     cursor: pointer;
+
+                    &:hover {
+                        color: white;
+                    }
                 }
     
                 .topbar-dropbox-item:hover {
