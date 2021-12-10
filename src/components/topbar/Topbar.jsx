@@ -44,8 +44,8 @@ function Topbar() {
 
                         {/* dropbox */}
                         <div className="topbar-login-dropbox">
-                            <Link to='/profile' className="topbar-dropbox-item">Sửa thông tin</Link>
-                            <Link to='/profile/password' className="topbar-dropbox-item">Đổi mật khẩu</Link>
+                            <Link to='/profile' className="topbar-dropbox-item">Tài khoản</Link>
+                            <Link to='/profile/password' className="topbar-dropbox-item">Mật khẩu</Link>
                             <Link to='/profile/favorite' className="topbar-dropbox-item">Yêu thích</Link>
                             <Link to='#' className="topbar-dropbox-item" onClick={handleLogOut}>Đăng xuất</Link>
                         </div>

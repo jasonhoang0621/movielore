@@ -4,7 +4,7 @@ import Menubar from "../../components/menubar/Menubar"
 import Review from '../../components/review/Review'
 import AddPost from "../../components/addPost/AddPost"
 import DetailPost from "../../components/detailPost/DetailPost"
-import Login from "../../components/login/Login"
+import Login from '../../components/login/Login'
 import Register from "../../components/register/Register"
 import Profile from "../../components/profile/Profile"
 import {
