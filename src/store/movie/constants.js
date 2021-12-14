@@ -19,3 +19,6 @@ export const RESET_POST_LIST = 'reset_post_list'
 //add review
 export const ADD_NEW_REVIEW = 'add_new_review'
 
+//delete review
+export const DELETE_REVIEW = 'delete_review'
+

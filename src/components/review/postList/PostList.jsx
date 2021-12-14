@@ -4,8 +4,9 @@ import { useContext } from 'react'
 import { Context } from '../../../store'
 
 function PostList() {
+
     const { state } = useContext(Context.movieContext);
-    let movies = state.isFinalFilter ? state.finalFilter : state.filter;
+    let movies = state.filter;
 
     return (
         <>

@@ -2,25 +2,38 @@ import './detailPost.scss'
 import Comment from './comment/Comment'
 import { useParams, useHistory } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { Context } from '../../store'
+import { Context, movieActions } from '../../store'
 import { Settings, Grade } from '@material-ui/icons'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Modal, Button } from 'react-bootstrap'
+import axios from 'axios'
 
 function DetailPost() {
     const { id } = useParams();
-    const { state } = useContext(Context.movieContext);
+    const { state, dispatch } = useContext(Context.movieContext);
     const { userState } = useContext(Context.userContext);
     const history = useHistory();
     const movie = state.movies.find(item => item._id === id);
     const [isShowOption, setIsShowOption] = useState(false);
     const [isShowTrailer, SetIsShowTrailer] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
     const handleShowOption = () => {
         setIsShowOption(!isShowOption);
     }
 
     const handleDeleteReview = () => {
-        console.log('xóa bài r');
-        history.push('/');
+        setIsLoadingBtn(true);
+        axios.delete(`http://localhost:4000/${movie._id}`)
+            .then(res => {
+                if (res.data.error === 0) {
+                    dispatch(movieActions.deleteReview(movie._id));
+                } else return;
+            })
+            .then(setIsLoadingBtn(true))
+            .then(() => history.push('/'))
+            .catch(err => console.log(err))
     }
 
     const handleShowTrailer = () => {
@@ -38,7 +51,7 @@ function DetailPost() {
                     {userState.role && <div className="detail-option-icon" onClick={handleShowOption}><Settings /></div>}
                     {isShowOption && <div className="detail-option-dropdown">
                         <div className="option-item">Sửa đổi</div>
-                        <div className="option-item" onClick={handleDeleteReview}>Xóa</div>
+                        <div className="option-item" onClick={() => setShowModal(true)}>Xóa</div>
                     </div>}
                     <img src={movie.poster.secure_url} alt={movie.name} className="detail-background" />
 
@@ -75,13 +88,11 @@ function DetailPost() {
                         {movie.review.map((item, index) => {
                             return (
                                 <div key={index} className="review-section">
-                                    <h2 className="review-title">{`${index + 1}) ${Object.keys(item)}`}</h2>
-                                    {Object.values(item)[0].split('\r\n').map((item, index) => <p className="review-content" key={index}>{item}</p>)}
+                                    <h2 className="review-title">{`${index + 1}) ${item.section}`}</h2>
+                                    {item.content.split('\\r\\n').map((line, i) => <p className="review-content" key={i}>{line}</p>)}
                                 </div>
                             )
                         })}
-
-
                     </div>
 
                     <h1 className="detail-rate">Mức điểm: {movie.rate}/10 <Grade className="detail-rate-icon" /></h1>
@@ -96,6 +107,36 @@ function DetailPost() {
             {isShowTrailer && <div className="trailer-screen" onClick={handleCloseTrailer}>
                 <iframe className="trailer-video" src={`https://www.youtube.com/embed/${movie.trailer}?autoplay=1`} title="youtube" frameBorder="0" allow='autoplay' onClick={event => event.stopPropagation()}></iframe>
             </div>}
+
+            <Modal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                size="md"
+                // aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Xác nhận
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h4>Bạn có chắc chắn muốn xóa bài viết?</h4>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className='delete-modal-comfirm'
+                        variant="outline-secondary"
+                        onClick={() => setShowModal(false)}
+                    >Hủy</Button>
+                    <Button className='delete-modal-comfirm'
+                        variant='danger'
+                        disabled={isLoadingBtn}
+                        onClick={isLoadingBtn ? null : handleDeleteReview}>
+                        {isLoadingBtn ? 'Đang xóa...' : 'Xóa'}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

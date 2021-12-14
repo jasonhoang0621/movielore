@@ -1,6 +1,6 @@
 import {
     LOAD_MOVIES_DATA, FILTER_MOVIES_GERNE, FILTER_MOVIES_YEAR, FILTER_MOVIES_TYPE,
-    FILTER_MOVIES_COUNTRY, SEARCH_BAR_TRUE, SEARCH_BAR_FALSE, RESET_POST_LIST, ADD_NEW_REVIEW
+    FILTER_MOVIES_COUNTRY, SEARCH_BAR_TRUE, SEARCH_BAR_FALSE, RESET_POST_LIST, ADD_NEW_REVIEW, DELETE_REVIEW
 } from './constants';
 
 const initState = {
@@ -144,6 +144,12 @@ function reducer(state, action) {
                 country: 'Tất cả',
             }
         }
+        case DELETE_REVIEW:
+            return {
+                ...state,
+                movies: state.movies.filter(item => item._id !== action.payload),
+                filter: state.movies.filter(item => item._id !== action.payload),
+            }
 
         default:
             throw new Error('movie invalid action')
