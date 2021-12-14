@@ -25,7 +25,7 @@ function DetailPost() {
 
     const handleDeleteReview = () => {
         setIsLoadingBtn(true);
-        axios.delete(`http://localhost:4000/${movie._id}`)
+        axios.delete(`https://movielore-database.herokuapp.com/${movie._id}`)
             .then(res => {
                 if (res.data.error === 0) {
                     dispatch(movieActions.deleteReview(movie._id));
