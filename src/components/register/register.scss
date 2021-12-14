@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     background-color: rgba(204, 204, 204, 0.8);
     align-self: center;
     width: 30em;
@@ -9,11 +9,6 @@
         text-align: center;
         margin-bottom: 1em;
         font-size: 3em;
-    }
-
-    p {
-        text-align: center;
-        margin-bottom: 0.8em;
     }
 
     .register-account {
@@ -47,8 +42,8 @@
         
     }
 
-    #login-password-input {
-        margin-bottom: 0.2em;
+    #register-rePassword-input {
+        margin-bottom: 2em;
     }
 
     .forget-password {
@@ -63,9 +58,16 @@
         }
     }
 
-    .login-button {
+    #register-alert {
+        color: rgb(192, 17, 17);
+        text-align: right;
+        font-size: 1.1em;
+    }
+
+    .register-button {
         display: flex;
         justify-content: space-around;
+        margin-top: 0.5em;
         margin-bottom: 2em;
 
         button {
@@ -83,20 +85,11 @@
             opacity: 0.5;
             }
 
-        }    
+        }
     }
 
-    #login-alert {
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-        color: rgb(192, 17, 17);
-        text-align: right;
-    }
-
-    .login-loader-containter {
+    .register-loader-containter {
         display: flex;
         justify-content: center;
-        margin-bottom: 1em;
     }
-
 }
