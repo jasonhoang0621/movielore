@@ -11,6 +11,7 @@ function MovieProvider(props) {
         axios.get('https://movielore-database.herokuapp.com')
             .then(function (res) {
                 let data = res && res.data ? res.data : [];
+                console.log(data);
                 dispatch(movieActions.loadMoviesDate(data.reverse()));
             })
             .catch(function (e) {

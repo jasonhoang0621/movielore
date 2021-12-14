@@ -23,7 +23,7 @@ function PostList() {
                                     gerne={item.gerne.join(', ')}
                                     name={item.name}
                                     plot={item.plot}
-                                    poster={item.poster}
+                                    poster={item.poster.secure_url}
                                     rate={item.rate}
                                     releaseDate={item.releaseDate}
                                     review={item.review}

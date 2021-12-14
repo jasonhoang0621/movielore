@@ -40,7 +40,7 @@ function DetailPost() {
                         <div className="option-item">Sửa đổi</div>
                         <div className="option-item" onClick={handleDeleteReview}>Xóa</div>
                     </div>}
-                    <img src={movie.poster} alt={movie.name} className="detail-background" />
+                    <img src={movie.poster.secure_url} alt={movie.name} className="detail-background" />
 
                     <div className="detail-information">
                         <div className="detail-name">{movie.name}</div>
@@ -54,7 +54,7 @@ function DetailPost() {
 
                     </div>
 
-                    <img src={movie.poster} alt={movie.name} className="detail-poster" />
+                    <img src={movie.poster.secure_url} alt={movie.name} className="detail-poster" />
 
                     <div className="detail-feature">
                         <div className="detail-add-fav detail-button">Yêu thích</div>
