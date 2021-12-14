@@ -1,11 +1,11 @@
 import './information.scss'
-import { ArrowUpward } from '@material-ui/icons'
-import { Context, userActions } from '../../../store';
+// import { ArrowUpward } from '@material-ui/icons'
+import { Context } from '../../../store';
 import { useContext, useState } from 'react'
 
 
 function Information() {
-    const { userState, userDispatch } = useContext(Context.userContext);
+    const { userState } = useContext(Context.userContext);
     const [newInfo, setNewInfo] = useState({
         name: userState.name,
         email: userState.email

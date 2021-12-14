@@ -9,11 +9,12 @@ import { movieActions } from '../../store'
 function AddPost() {
     const gernes = ['Anime', 'Âm nhạc', 'Bí ẩn', 'Chiến tranh', 'Chính kịch', 'Drama',
         'Hoạt hình', 'Gia đình', 'Giật Gân', 'Hài', 'Hành động', 'Viễn tưởng', 'Kinh dị',
-        'Lãng mạn', 'Phiêu lưu', 'Tài liệu', 'Tâm lí'];
+        'Lãng mạn', 'Phiêu lưu', 'Tài liệu', 'Tâm lí', 'Tội phạm'];
 
     const { dispatch } = useContext(Context.movieContext);
 
     const types = ['Mọi lứa tuổi', 'C13', 'C16', 'C18', 'R'];
+    const [isLoading, setIsLoading] = useState(false);
     const [poster, setPoster] = useState();
     const [reviews, setReviews] = useState([{ section: '', content: '' }]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -92,6 +93,7 @@ function AddPost() {
     }
 
     const handleSubmitAll = () => {
+        setIsLoading(true);
         const values = Object.values(data);
         for (let i = 0; i < values.length; i++) {
             if ((typeof values[i] === 'string' && values[i] === '') || (typeof values[i] === 'object' && values[i].length === 0)) {
@@ -119,12 +121,20 @@ function AddPost() {
             })
             .then(() => {
                 axios({
-                    url: 'http://localhost:4000/',
+                    url: 'https://movielore-database.herokuapp.com',
                     method: 'POST',
                     data: fullData
                 })
                     .then(res => {
-                        dispatch(movieActions.addNewReview(res.data));
+                        setIsLoading(true);
+                        if (!res.data.error) {
+                            dispatch(movieActions.addNewReview(res.data.newMovie));
+                        } else {
+                            setErrorMessage('Tạo bài không thành công');
+                            setTimeout(() => {
+                                setErrorMessage('');
+                            }, 3000);
+                        }
                     })
                     .then(history.push('/'))
                     .catch(error => console.log(error))
@@ -234,7 +244,10 @@ function AddPost() {
 
                 <div className="submit-block">
                     <span className="summit-error">{errorMessage}</span>
-                    <button className="submit-btn" value="Submit" type='submit' onClick={e => handleSubmitAll(e)}>ĐĂNG BÀI</button>
+
+                    {isLoading ? <div className="loader" ></div>
+                        :
+                        <button className="submit-btn" value="Submit" type='submit' onClick={e => handleSubmitAll(e)}>ĐĂNG BÀI</button>}
                 </div>
                 {/* </form> */}
             </div>
