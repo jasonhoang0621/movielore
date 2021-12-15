@@ -1,4 +1,4 @@
-import { STORE_LOGIN_ACCOUNT, LOGOUT_ACCOUNT, STORE_NEW_INFORMATION, CHANGE_NEW_PASSWORD } from './constant';
+import { STORE_LOGIN_ACCOUNT, LOGOUT_ACCOUNT, STORE_NEW_INFORMATION, CHANGE_NEW_PASSWORD, ADD_TO_FAVORITE, REMOVE_FROM_FAVORITE } from './constant';
 
 //store account after login
 export const StoreAccount = (payload) => ({
@@ -20,3 +20,12 @@ export const storeNewPass = (payload) => ({
     payload
 })
 
+export const addToFavorite = (payload) => ({
+    type: ADD_TO_FAVORITE,
+    payload
+})
+
+export const removeFromFavorite = (payload) => ({
+    type: REMOVE_FROM_FAVORITE,
+    payload
+})

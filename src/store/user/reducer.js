@@ -1,10 +1,14 @@
-import { STORE_LOGIN_ACCOUNT, LOGOUT_ACCOUNT, STORE_NEW_INFORMATION, CHANGE_NEW_PASSWORD } from './constant';
+import {
+    STORE_LOGIN_ACCOUNT, LOGOUT_ACCOUNT, STORE_NEW_INFORMATION, CHANGE_NEW_PASSWORD, ADD_TO_FAVORITE,
+    REMOVE_FROM_FAVORITE
+} from './constant';
 
 const initState = {
     id: null,
     name: null,
     email: null,
     password: null,
+    favorite: [],
     role: false
 }
 
@@ -16,14 +20,16 @@ function reducer(state, action) {
                 name: action.payload.name,
                 email: action.payload.email,
                 password: action.payload.password,
-                role: action.payload.role
+                role: action.payload.role,
+                favorite: action.payload.favorite,
             }
         case LOGOUT_ACCOUNT:
             return {
                 name: null,
                 email: null,
                 password: null,
-                role: false
+                role: false,
+                favorite: [],
             }
         case STORE_NEW_INFORMATION:
             return {
@@ -36,6 +42,18 @@ function reducer(state, action) {
                 ...state,
                 password: action.payload,
             }
+        case ADD_TO_FAVORITE:
+            return {
+                ...state,
+                favorite: [...state.favorite, action.payload]
+            }
+        case REMOVE_FROM_FAVORITE: {
+            const removeFav = state.favorite.filter(item => item !== action.payload)
+            return {
+                ...state,
+                favorite: removeFav
+            }
+        }
         default:
             throw new Error('user invalid action');
     }

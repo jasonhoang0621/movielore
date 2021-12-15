@@ -2,7 +2,7 @@ import './detailPost.scss'
 import Comment from './comment/Comment'
 import { useParams, useHistory } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { Context, movieActions } from '../../store'
+import { Context, movieActions, userActions } from '../../store'
 import { Settings, Grade } from '@material-ui/icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, Button } from 'react-bootstrap'
@@ -11,13 +11,14 @@ import axios from 'axios'
 function DetailPost() {
     const { id } = useParams();
     const { state, dispatch } = useContext(Context.movieContext);
-    const { userState } = useContext(Context.userContext);
+    const { userState, userDispatch } = useContext(Context.userContext);
     const history = useHistory();
     const movie = state.movies.find(item => item._id === id);
     const [isShowOption, setIsShowOption] = useState(false);
     const [isShowTrailer, SetIsShowTrailer] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
+    const [isLoadingFav, setIsLoadingFav] = useState(false);
 
     const handleShowOption = () => {
         setIsShowOption(!isShowOption);
@@ -42,6 +43,34 @@ function DetailPost() {
 
     const handleCloseTrailer = () => {
         SetIsShowTrailer(false);
+    }
+
+    const handleToLogin = () => {
+        history.push('/login');
+    }
+
+    const handleAddFav = () => {
+        setIsLoadingFav(true);
+        axios.post(`https://movielore-database.herokuapp.com/user/favorite/${movie._id}`, { user: userState.id })
+            .then(res => {
+                if (res.data.error === 0) {
+                    setIsLoadingFav(false);
+                    userDispatch(userActions.addToFavorite(movie._id));
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleRemoveFav = () => {
+        setIsLoadingFav(true);
+        axios.post(`https://movielore-database.herokuapp.com/user/favorite/delete/${movie._id}`, { user: userState.id })
+            .then(res => {
+                if (res.data.error === 0) {
+                    setIsLoadingFav(false);
+                    userDispatch(userActions.removeFromFavorite(movie._id));
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -70,7 +99,9 @@ function DetailPost() {
                     <img src={movie.poster.secure_url} alt={movie.name} className="detail-poster" />
 
                     <div className="detail-feature">
-                        <div className="detail-add-fav detail-button">Yêu thích</div>
+                        {userState.favorite.includes(movie._id) ? <div className="detail-remove-fav detail-button" onClick={isLoadingFav ? null : handleRemoveFav}>{isLoadingFav ? 'Đang xóa...' : 'Bỏ yêu thích'}</div>
+                            :
+                            <div className="detail-add-fav detail-button" onClick={userState.name ? (isLoadingFav ? null : handleAddFav) : handleToLogin}>{isLoadingFav ? 'Đang thêm...' : 'Yêu thích'}</div>}
                         <div className="detail-trailer detail-button" onClick={handleShowTrailer}>Xem trailer</div>
                     </div>
                 </div>

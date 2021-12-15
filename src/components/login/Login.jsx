@@ -34,7 +34,7 @@ function Login() {
                     return;
                 } else {
                     userDispatch(userActions.StoreAccount(res.data));
-                    history.push('/')
+                    history.goBack();
                 }
             })
             .catch(error => console.log(error))

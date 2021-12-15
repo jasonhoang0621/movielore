@@ -92,6 +92,7 @@ function AddPost() {
         const values = Object.values(data);
         for (let i = 0; i < values.length; i++) {
             if ((typeof values[i] === 'string' && values[i] === '') || (typeof values[i] === 'object' && values[i].length === 0)) {
+                setIsLoading(false);
                 setErrorMessage('Vui lòng kiểm tra và điền đầy đủ thông tin');
                 setTimeout(() => {
                     setErrorMessage('');
@@ -102,7 +103,7 @@ function AddPost() {
 
         const fullData = data;
 
-        fullData.trailer = "https://www.youtube.com/embed/" + data.trailer + "?autoplay=1";
+        // fullData.trailer = "https://www.youtube.com/embed/" + data.trailer + "?autoplay=1";
 
         const fd = new FormData();
         fd.append('file', poster)
