@@ -7,6 +7,7 @@ import DetailPost from "../../components/detailPost/DetailPost"
 import Login from '../../components/login/Login'
 import Register from "../../components/register/Register"
 import Profile from "../../components/profile/Profile"
+import EditPost from "../../components/editPost/EditPost"
 import {
     BrowserRouter as Router,
     Switch,
@@ -43,6 +44,15 @@ function Home() {
                         <Topbar />
                         <div className="home-container">
                             <DetailPost />
+                        </div>
+                    </div>
+                </Route>
+
+                <Route path="/edit/:id">
+                    <div className="home-background">
+                        <Topbar />
+                        <div className="home-container">
+                            <EditPost />
                         </div>
                     </div>
                 </Route>

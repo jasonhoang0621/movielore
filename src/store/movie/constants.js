@@ -22,3 +22,7 @@ export const ADD_NEW_REVIEW = 'add_new_review'
 //delete review
 export const DELETE_REVIEW = 'delete_review'
 
+//update review
+export const UPDATE_REVIEW = 'update_review'
+
+

@@ -50,7 +50,7 @@ function DetailPost() {
                 <div className="detail-first-block">
                     {userState.role && <div className="detail-option-icon" onClick={handleShowOption}><Settings /></div>}
                     {isShowOption && <div className="detail-option-dropdown">
-                        <div className="option-item">Sửa đổi</div>
+                        <div className="option-item" onClick={() => history.push(`/edit/${movie._id}`)}>Chỉnh sửa</div>
                         <div className="option-item" onClick={() => setShowModal(true)}>Xóa</div>
                     </div>}
                     <img src={movie.poster.secure_url} alt={movie.name} className="detail-background" />
