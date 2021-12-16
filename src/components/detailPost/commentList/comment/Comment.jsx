@@ -9,8 +9,8 @@ function Comment(props) {
     const [showRootOption, setShowRootOption] = useState(false);
 
     let authenticate = null;
-    if (userState._id === (props?.comment?._id || props?.reply?._id)) {
-        authenticate = 'owner'
+    if (userState.id === (props.comment.userID || props.reply.userID)) {
+        authenticate = 'owner';
     } else if (userState.role) {
         authenticate = 'admin'
     } else if (userState.name !== null) {
@@ -37,7 +37,7 @@ function Comment(props) {
                                 {showRootOption &&
                                     <ul className='root-item-dropbox'>
                                         <li className='dropbox-item'>Chỉnh sửa</li>
-                                        <li className='dropbox-item'>Xóa</li>
+                                        <li className='dropbox-item' onClick={() => props.handleDeleteComment(props.comment._id)}>Xóa</li>
                                     </ul>}
                             </div>
                         }

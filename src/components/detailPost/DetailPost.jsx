@@ -52,7 +52,7 @@ function DetailPost() {
 
     const handleAddFav = () => {
         setIsLoadingFav(true);
-        axios.post(`https://movielore-database.herokuapp.com/user/favorite/${movie._id}`, { user: userState.id })
+        axios.post(`https://movielore-database.herokuapp.com/user/favorite/${movie?._id}`, { user: userState.id })
             .then(res => {
                 if (res.data.error === 0) {
                     setIsLoadingFav(false);
@@ -64,7 +64,7 @@ function DetailPost() {
 
     const handleRemoveFav = () => {
         setIsLoadingFav(true);
-        axios.post(`https://movielore-database.herokuapp.com/user/favorite/delete/${movie._id}`, { user: userState.id })
+        axios.post(`https://movielore-database.herokuapp.com/user/favorite/delete/${movie?._id}`, { user: userState.id })
             .then(res => {
                 if (res.data.error === 0) {
                     setIsLoadingFav(false);
@@ -75,18 +75,12 @@ function DetailPost() {
     }
 
     useEffect(() => {
-        // axios.get(`http://localhost:4000/comment/${movie._id}`)
-        //     .then(res => {
-        //         setComments(res.data);
-        //     })
-        //     .catch(err => console.log(err))
-
-        setComments([
-            { _id: 1, parentID: null, name: 'nhan', content: 'hello\nallo ha' },
-            { _id: 2, parentID: null, name: 'nhan', content: 'hello' },
-            { _id: 3, parentID: 123, name: 'nhan', content: 'hello' },
-        ])
-    }, [])
+        axios.get(`https://movielore-database.herokuapp.com/comment/${movie?._id}`)
+            .then(res => {
+                setComments(res.data.reverse());
+            })
+            .catch(err => console.log(err))
+    }, [movie?._id])
 
     return (
         <>
@@ -147,7 +141,7 @@ function DetailPost() {
             </div>}
 
             <div className="comment-section">
-                <CommentList comments={comments} />
+                <CommentList comments={comments} reviewID={movie?._id} />
             </div>
 
             {isShowTrailer && <div className="trailer-screen" onClick={handleCloseTrailer}>
