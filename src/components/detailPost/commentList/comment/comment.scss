@@ -8,6 +8,10 @@
     user-select: none;
 
     .root-comment {
+        .owner-username {
+            color:rgb(116, 25, 25);
+        }
+
         .list-comment-content {
             padding: 0.5em 1em;
             background-color: white;
@@ -58,9 +62,11 @@
         }
     }
 
-
-
     .child-comment {
+        .owner-username {
+            color:rgb(116, 25, 25);
+        }
+        
         .comment-username {
             margin-bottom: 0.2em;
             font-weight: bold;

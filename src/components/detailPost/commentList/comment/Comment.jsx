@@ -26,9 +26,18 @@ function Comment(props) {
             {props.comment ?
                 <div className="comment-item">
                     <div className="root-comment">
-                        <div className='mb-1'>
-                            <span className='comment-username'>{props.comment.name}</span>
-                        </div>
+                        {/* other name */}
+                        {authenticate !== 'owner' &&
+                            <div className='mb-1'>
+                                <span className='comment-username'>{props.comment.name}</span>
+                            </div>}
+
+                        {/* owner name */}
+                        {authenticate === 'owner' &&
+                            <div className='mb-1'>
+                                <span className='comment-username owner-username'>Tôi</span>
+                            </div>}
+
                         {authenticate === 'owner' &&
                             <div className='list-comment-content feature-notice' tabIndex={0} onClick={showRootOption ? handleHiddenRootOption : handleShowRootOption} onBlur={handleHiddenRootOption}>
                                 {props.comment.content.split('\n').map((item, index) => <div key={index}>{item}</div>)}
@@ -79,9 +88,17 @@ function Comment(props) {
                 :
                 <div className="comment-item">
                     <div className="child-comment">
-                        <div className='text-end mt-2 mb-1'>
-                            <span className='comment-username'>{props.reply.name}</span>
-                        </div>
+                        {/* other name */}
+                        {authenticate !== 'owner' &&
+                            <div className='mb-1'>
+                                <span className='comment-username'>{props.reply.name}</span>
+                            </div>}
+
+                        {/* owner name */}
+                        {authenticate === 'owner' &&
+                            <div className='mb-1'>
+                                <span className='comment-username owner-username'>Tôi</span>
+                            </div>}
                         {authenticate === 'owner' &&
                             <div className='list-comment-content feature-notice' tabIndex={0} onClick={showRootOption ? handleHiddenRootOption : handleShowRootOption} onBlur={handleHiddenRootOption}>
                                 {props.reply.content.split('\n').map((item, index) => <div key={index}>{item}</div>)}
