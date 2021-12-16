@@ -59,9 +59,9 @@ function Password() {
                 <label>Nhập lại mật khẩu:</label>
             </div>
             <div className="password-content">
-                <input type="password" name="oldPassword" required value={password.oldPassword} onChange={e => setPassword({ ...password, oldPassword: e.target.value })} />
-                <input type="password" name="newPassword" required value={password.newPassword} onChange={e => setPassword({ ...password, newPassword: e.target.value })} />
-                <input type="password" name="rePassword" required value={password.rePassword} onChange={e => setPassword({ ...password, rePassword: e.target.value })} />
+                <input type="password" name="oldPassword" required value={password.oldPassword} onChange={e => setPassword({ ...password, oldPassword: e.target.value })} autoComplete='on' />
+                <input type="password" name="newPassword" required value={password.newPassword} onChange={e => setPassword({ ...password, newPassword: e.target.value })} autoComplete='on' />
+                <input type="password" name="rePassword" required value={password.rePassword} onChange={e => setPassword({ ...password, rePassword: e.target.value })} autoComplete='on' />
             </div>
             <div className='clearfix'></div>
 

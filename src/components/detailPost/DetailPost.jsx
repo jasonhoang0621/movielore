@@ -1,7 +1,7 @@
 import './detailPost.scss'
-import Comment from './comment/Comment'
+import CommentList from './commentList/CommentList'
 import { useParams, useHistory } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Context, movieActions, userActions } from '../../store'
 import { Settings, Grade } from '@material-ui/icons'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -19,6 +19,7 @@ function DetailPost() {
     const [showModal, setShowModal] = useState(false);
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
     const [isLoadingFav, setIsLoadingFav] = useState(false);
+    const [comments, setComments] = useState([]);
 
     const handleShowOption = () => {
         setIsShowOption(!isShowOption);
@@ -72,6 +73,20 @@ function DetailPost() {
             })
             .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        // axios.get(`http://localhost:4000/comment/${movie._id}`)
+        //     .then(res => {
+        //         setComments(res.data);
+        //     })
+        //     .catch(err => console.log(err))
+
+        setComments([
+            { _id: 1, parentID: null, name: 'nhan', content: 'hello\nallo ha' },
+            { _id: 2, parentID: null, name: 'nhan', content: 'hello' },
+            { _id: 3, parentID: 123, name: 'nhan', content: 'hello' },
+        ])
+    }, [])
 
     return (
         <>
@@ -132,7 +147,7 @@ function DetailPost() {
             </div>}
 
             <div className="comment-section">
-                <Comment />
+                <CommentList comments={comments} />
             </div>
 
             {isShowTrailer && <div className="trailer-screen" onClick={handleCloseTrailer}>
