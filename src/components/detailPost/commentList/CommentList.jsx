@@ -4,6 +4,18 @@ import { useContext, useState, useEffect } from 'react'
 import Comment from './comment/Comment';
 import axios from 'axios';
 
+const sortComment = (comments) => {
+    let sortList = [];
+    for (let i = 0; i < comments.length; i++) {
+        if (comments[i].parentID === null) {
+            sortList.push(comments[i]);
+            const reply = comments.filter(item => item.parentID === comments[i]._id);
+            sortList = sortList.concat(reply);
+        }
+    }
+
+    return sortList;
+}
 
 function CommentList(props) {
     const { userState } = useContext(Context.userContext);
@@ -11,7 +23,6 @@ function CommentList(props) {
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
     const [newComment, setNewCommnet] = useState({
-        _id: 1,
         reviewID: props.reviewID,
         userID: userState.id,
         name: userState.name,
@@ -20,7 +31,7 @@ function CommentList(props) {
     })
 
     useEffect(() => {
-        setComments(props.comments)
+        setComments(sortComment(props.comments))
     }, [props.comments])
 
     const handlePostNewComment = () => {
@@ -39,6 +50,26 @@ function CommentList(props) {
                     console.log(err);
                 });
         }
+    }
+
+    const handleReplyComment = (parentID, content) => {
+        const reply = {
+            reviewID: props.reviewID,
+            userID: userState.id,
+            name: userState.name,
+            content: content,
+            parentID: parentID
+        }
+        axios.post('https://movielore-database.herokuapp.com/comment', reply)
+            .then(res => {
+                if (!res.data.error) {
+                    const newComment = [res.data, ...comments]
+                    setComments(sortComment(newComment));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     const handleDeleteComment = (id) => {
@@ -68,7 +99,7 @@ function CommentList(props) {
             {/* thêm class self cmt để edit */}
             <div className="list-comment">
                 {comments.map(item => {
-                    if (item.parentID === null) return <Comment key={item._id} comment={item} handleDeleteComment={handleDeleteComment} />
+                    if (item.parentID === null) return <Comment key={item._id} comment={item} handleDeleteComment={handleDeleteComment} handleReplyComment={handleReplyComment} />
                     else return <Comment key={item._id} reply={item} handleDeleteComment={handleDeleteComment} />
                 })}
             </div>
