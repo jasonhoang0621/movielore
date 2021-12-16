@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Context } from '../../../../store'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function Comment(props) {
@@ -61,7 +62,7 @@ function Comment(props) {
                         {/* other name */}
                         {authenticate !== 'owner' &&
                             <div className='mb-1'>
-                                <span className='comment-username'>{props.comment.name}</span>
+                                <Link to={`/profile/${props.comment.userID}`} className='comment-username'>{props.comment.name}</Link>
                             </div>}
 
                         {/* owner name */}
@@ -140,7 +141,7 @@ function Comment(props) {
                         {/* other name */}
                         {authenticate !== 'owner' &&
                             <div className='mb-1'>
-                                <span className='comment-username'>{props.reply.name}</span>
+                                <Link to={`/profile/${props.reply.userID}`} className='comment-username' >{props.reply.name}</Link>
                                 <div className="clearfix"></div>
                             </div>}
 

@@ -1,11 +1,11 @@
 import './information.scss'
-// import { ArrowUpward } from '@material-ui/icons'
+import { ArrowUpward } from '@material-ui/icons'
 import { Context, userActions } from '../../../store';
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import axios from 'axios';
 
 
-function Information() {
+function Information(props) {
     const { userState, userDispatch } = useContext(Context.userContext);
     const [newInfo, setNewInfo] = useState({
         name: userState.name,
@@ -15,6 +15,11 @@ function Information() {
     const [isEdit, setIsEdit] = useState(false);
     const [warn, setWarn] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [otherInfo, setOtherInfo] = useState({});
+
+    useEffect(() => {
+        setOtherInfo(props.otherInfo);
+    }, [props.otherInfo])
 
     const handleBack = () => {
         setIsEdit(false);
@@ -41,6 +46,16 @@ function Information() {
             })
     }
 
+    const upgradeUser = () => {
+        axios.get(`https://movielore-database.herokuapp.com/user/upgrade/${props.otherInfo._id}`)
+            .then(res => {
+                if (!res.data.error) {
+                    setOtherInfo({ ...otherInfo, role: true })
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
 
     return (
         <div className="information-container">
@@ -52,7 +67,7 @@ function Information() {
                 <label>Chức vụ:</label>
             </div>
 
-            {isEdit ?
+            {isEdit &&
                 <form onSubmit={e => handleChangeInfo(e)}>
                     <div className="information-content">
                         <input type="text" value={newInfo.name} onChange={(e) => setNewInfo({ ...newInfo, name: e.target.value })} required />
@@ -64,12 +79,15 @@ function Information() {
                     {isLoading ? <div className="loader"></div>
                         :
                         <>
-
                             <div className="warning-message">{warn}</div>
                             <input type="button" value="Hủy" className='information-toggle-button cancel-change' onClick={handleBack} />
-                            <input type="submit" value="Lưu" className='information-toggle-button change-info' /></>}
+                            <input type="submit" value="Lưu" className='information-toggle-button change-info' />
+                        </>
+                    }
                 </form>
-                :
+            }
+
+            {!isEdit && !props.otherInfo &&
                 <>
                     <div className="information-content">
                         <div>{userState.name}</div>
@@ -82,6 +100,18 @@ function Information() {
                     <div className='clearfix'></div>
 
                     <input type="submit" value="Sửa thông tin" className="information-toggle-button start-change" onClick={() => setIsEdit(true)} />
+                </>
+            }
+
+            {props.otherInfo &&
+                <>
+                    <div className="information-content">
+                        <div>{otherInfo.name}</div>
+                        <div>{otherInfo.email}</div>
+                        {otherInfo.role && <div>Quản trị viên</div>}
+                        {!otherInfo.role && !userState.role && <div>Thành viên</div>}
+                        {!otherInfo.role && userState.role && <div>Thành viên <span onClick={upgradeUser}><ArrowUpward /></span></div>}
+                    </div>
                 </>
             }
         </div>

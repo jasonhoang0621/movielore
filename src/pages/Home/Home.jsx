@@ -57,6 +57,13 @@ function Home() {
                     </div>
                 </Route>
 
+                <Route path="/profile/:id">
+                    <div className="home-background">
+                        <Topbar />
+                        <Profile />
+                    </div>
+                </Route>
+
                 <Route path="/profile">
                     <div className="home-background">
                         <Topbar />
