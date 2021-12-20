@@ -34,7 +34,8 @@ function Comment(props) {
         axios.post('https://movielore-database.herokuapp.com/comment/update', oldComment)
             .then(res => {
                 if (res.data.error === 0) {
-                    props.comment.content = updateComment;
+                    if (props?.comment) props.comment.content = updateComment;
+                    if (props?.reply) props.comment.content = updateComment;
                     setIsEdit(false);
                     setIsLoadingBtn(false);
                 }
@@ -87,7 +88,7 @@ function Comment(props) {
                             <>
                                 <textarea value={updateComment} onChange={e => setUpdateComment(e.target.value)}></textarea>
                                 <div>
-                                    <button className='comment-btn' onClick={isLoadingBtn ? null : handleReplyComment}>{isLoadingBtn ? 'Đang lưu...' : 'Lưu'}</button>
+                                    <button className='comment-btn' onClick={isLoadingBtn ? null : handleSaveUpdate}>{isLoadingBtn ? 'Đang lưu...' : 'Lưu'}</button>
                                     <button className='comment-btn cancel-btn' onClick={isLoadingBtn ? null : (() => setIsEdit(false))}>Hủy</button>
                                 </div>
                                 <div className="clearfix"></div>
