@@ -1,7 +1,6 @@
 import './information.scss'
-import { ArrowUpward } from '@material-ui/icons'
 import { Context, userActions } from '../../../store';
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import axios from 'axios';
 
 
@@ -15,11 +14,6 @@ function Information(props) {
     const [isEdit, setIsEdit] = useState(false);
     const [warn, setWarn] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [otherInfo, setOtherInfo] = useState({});
-
-    useEffect(() => {
-        setOtherInfo(props.otherInfo);
-    }, [props.otherInfo])
 
     const handleBack = () => {
         setIsEdit(false);
@@ -44,16 +38,6 @@ function Information(props) {
                     setIsLoading(false);
                 }
             })
-    }
-
-    const upgradeUser = () => {
-        axios.get(`https://movielore-database.herokuapp.com/user/upgrade/${props.otherInfo._id}`)
-            .then(res => {
-                if (!res.data.error) {
-                    setOtherInfo({ ...otherInfo, role: true })
-                }
-            })
-            .catch(err => console.log(err))
     }
 
 
@@ -87,7 +71,7 @@ function Information(props) {
                 </form>
             }
 
-            {!isEdit && !props.otherInfo &&
+            {!isEdit &&
                 <>
                     <div className="information-content">
                         <div>{userState.name}</div>
@@ -100,18 +84,6 @@ function Information(props) {
                     <div className='clearfix'></div>
 
                     <input type="submit" value="Sửa thông tin" className="information-toggle-button start-change" onClick={() => setIsEdit(true)} />
-                </>
-            }
-
-            {props.otherInfo &&
-                <>
-                    <div className="information-content">
-                        <div>{otherInfo.name}</div>
-                        <div>{otherInfo.email}</div>
-                        {otherInfo.role && <div>Quản trị viên</div>}
-                        {!otherInfo.role && !userState.role && <div>Thành viên</div>}
-                        {!otherInfo.role && userState.role && <div>Thành viên <span onClick={upgradeUser}><ArrowUpward /></span></div>}
-                    </div>
                 </>
             }
         </div>

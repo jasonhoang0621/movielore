@@ -62,7 +62,7 @@ function Comment(props) {
                         {/* other name */}
                         {authenticate !== 'owner' &&
                             <div className='mb-1'>
-                                <Link to={`/profile/${props.comment.userID}`} className='comment-username'>{props.comment.name}</Link>
+                                <Link to={`/other/${props.comment.userID}`} className='comment-username'>{props.comment.name}</Link>
                             </div>}
 
                         {/* owner name */}
@@ -141,7 +141,7 @@ function Comment(props) {
                         {/* other name */}
                         {authenticate !== 'owner' &&
                             <div className='mb-1'>
-                                <Link to={`/profile/${props.reply.userID}`} className='comment-username' >{props.reply.name}</Link>
+                                <Link to={`/other/${props.reply.userID}`} className='comment-username' >{props.reply.name}</Link>
                                 <div className="clearfix"></div>
                             </div>}
 
@@ -181,7 +181,7 @@ function Comment(props) {
 
                                 {showRootOption &&
                                     <ul className='child-item-dropbox'>
-                                        <li className='dropbox-item' onClick={() => props.handleDeleteComment(props.comment._id)}>Xóa</li>
+                                        <li className='dropbox-item' onClick={() => props.handleDeleteComment(props.reply._id)}>Xóa</li>
                                     </ul>}
                             </div>
                         }

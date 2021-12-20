@@ -1,10 +1,10 @@
 import './favorite.scss'
 import PostList from '../../review/postList/PostList';
 
-function Favorite() {
+function Favorite(props) {
     return (
         <div className="favorite-container">
-            <PostList favorite={true} />
+            <PostList otherInfo={props.otherInfo} />
         </div>
     )
 }
